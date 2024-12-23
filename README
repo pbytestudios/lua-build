@@ -1,9 +1,6 @@
 
-This is Lua 5.4.7, released on 13 Jun 2024.
-
-For installation instructions, license details, and
-further information about Lua, see doc/readme.html.
+This framework builds statically linked lua libs from source code using premake5
 
 Instructions:
-- Unzip a version of the [Lua source code](https://lua.org/download.html) into this directory and run build.bat
+- Unzip a version of the Lua source code(https://lua.org/download.html) into this directory and run build.bat
 - Static libs will be built and will show up in a build directory
