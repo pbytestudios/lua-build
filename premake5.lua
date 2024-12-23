@@ -19,6 +19,7 @@ workspace "Lua"
                 "{COPY} lua/src/lua.h build/include/",
                 "{COPY} lua/src/lauxlib.h build/include/",
                 "{COPY} lua/src/lualib.h build/include/",
+                "{COPY} lua/src/luaconf.h build/include/",
             }
         filter "platforms:Wasm"
             system "emscripten"
@@ -34,6 +35,7 @@ workspace "Lua"
                 "{COPY} lua/src/lua.h build/include/",
                 "{COPY} lua/src/lauxlib.h build/include/",
                 "{COPY} lua/src/lualib.h build/include/",
+                "{COPY} lua/src/luaconf.h build/include/",
             }
         filter "configurations:*"
             runtime "Release"    
