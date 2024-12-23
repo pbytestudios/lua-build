@@ -1,6 +1,6 @@
 **/build/**
 **/.vscode/**
-lua/doc/**
+lua/**
 *.o
 *.lib
 *.a

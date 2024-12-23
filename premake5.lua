@@ -23,6 +23,7 @@ workspace "Lua"
         filter "platforms:Wasm"
             system "emscripten"
             optimize "speed"
+            architecture "wasm32"
             targetdir "build/wasm"
             -- i cannot get this to work since the ENV modifications are not carried over to the compile step!
             -- prebuildcommands {"if \"%EMSDK%\"==\"\" C:\\Compiler\\emsdk\\emsdk_env.bat"}
