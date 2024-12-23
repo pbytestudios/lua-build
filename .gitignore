@@ -1,0 +1,10 @@
+**/build/**
+**/.vscode/**
+lua/doc/**
+*.o
+*.lib
+*.a
+**/lua.make
+**/Makefile
+**/lib/**
+**/obj/**
