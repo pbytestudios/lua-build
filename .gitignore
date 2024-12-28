@@ -4,6 +4,7 @@ lua/**
 *.o
 *.lib
 *.a
+*.make
 **/lua.make
 **/Makefile
 **/lib/**

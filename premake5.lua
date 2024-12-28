@@ -1,11 +1,44 @@
 workspace "Lua"
     configurations {"Release"}
     platforms { "Windows", "Wasm" }
+    targetdir "build"
+    architecture "amd64"
+
+    project "LuaExe"
+        language "C"
+        kind "ConsoleApp"
+        staticruntime "on"
+        files { "lua/src/lua.c" }
+        includedirs { "lua/src" }
+        targetname "lua"
+        links {"Lua"}
+        filter "platforms:Windows"
+            system "windows"
+            targetdir "build/tools"
+        filter "configurations:*"
+            runtime "Release"    
+            optimize "speed"
+            defines { "NDEBUG"} --, "_WIN32" }
+    project "LuaC"
+        language "C"
+        kind "ConsoleApp"
+        staticruntime "on"
+        files { "lua/src/luac.c" }
+        includedirs { "lua/src" }
+        targetname "luac"
+        links {"Lua"}
+        filter "platforms:Windows"
+            system "windows"
+            targetdir "build/tools"
+        filter "configurations:*"
+            runtime "Release"    
+            optimize "speed"
+            defines { "NDEBUG"} --, "_WIN32" }
+
     project "Lua"
         language "C"
         kind "StaticLib"
         staticruntime "on"
-        architecture "amd64"
 
         files { "**.c", "**.h" }
         --Remove lua.c and lua.c since we are building a library
@@ -41,7 +74,6 @@ workspace "Lua"
             runtime "Release"    
             optimize "speed"
             defines { "NDEBUG"} --, "_WIN32" }
-    
     
         newaction {
             trigger = "clean",
