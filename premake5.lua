@@ -39,14 +39,13 @@ workspace "Lua"
         language "C"
         kind "StaticLib"
         staticruntime "on"
-
+        targetdir "build/%{cfg.platform}"
         files { "**.c", "**.h" }
         --Remove lua.c and lua.c since we are building a library
         removefiles { "**lua.c", "**luac.c" }
 
         filter "platforms:Windows"
             system "windows"
-            targetdir "build/windows"
             postbuildcommands {
                 "@echo off & if not exist build\\include mkdir build\\include",
                 "{COPY} lua/src/lua.h build/include/",
@@ -54,11 +53,10 @@ workspace "Lua"
                 "{COPY} lua/src/lualib.h build/include/",
                 "{COPY} lua/src/luaconf.h build/include/",
             }
-        filter "platforms:Wasm"
+        filter "platforms:wasm"
             system "emscripten"
             optimize "speed"
             architecture "wasm32"
-            targetdir "build/wasm"
             -- i cannot get this to work since the ENV modifications are not carried over to the compile step!
             -- prebuildcommands {"if \"%EMSDK%\"==\"\" C:\\Compiler\\emsdk\\emsdk_env.bat"}
             -- prebuildcommands {"@echo off & if \"%EMSDK%\"==\"\" call c:\\Compiler\\emsdk\\emsdk construct_env"}
