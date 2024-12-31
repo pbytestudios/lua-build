@@ -46,6 +46,7 @@ workspace "Lua"
 
         filter "platforms:Windows"
             system "windows"
+            defines{"_WIN32"}
             postbuildcommands {
                 "@echo off & if not exist build\\include mkdir build\\include",
                 "{COPY} lua/src/lua.h build/include/",
