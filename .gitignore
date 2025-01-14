@@ -1,5 +1,6 @@
 **/build/**
 **/.vscode/**
+**/.vs
 lua/**
 *.o
 *.lib
@@ -9,3 +10,5 @@ lua/**
 **/Makefile
 **/lib/**
 **/obj/**
+*.sln
+*.vcxproj*

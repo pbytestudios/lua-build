@@ -1,13 +1,28 @@
 workspace "Lua"
-    configurations {"Release"}
+    configurations {"release", "debug"}
     platforms { "Windows", "Wasm" }
     targetdir "build"
     architecture "amd64"
+    cppdialect "C++17"
+
+    filter "configurations:debug"
+        runtime  "debug"
+        symbols  "on"
+        optimize "off"
+        defines { "DEBUG" }
+
+    filter "configurations:release"
+        runtime  "release"
+        symbols  "off"
+        optimize "speed"
+        defines { "NDEBUG" }
+
 
     project "LuaExe"
         language "C"
         kind "ConsoleApp"
         staticruntime "on"
+        removeconfigurations "debug"
         files { "lua/src/lua.c" }
         includedirs { "lua/src" }
         targetname "lua"
@@ -15,14 +30,11 @@ workspace "Lua"
         filter "platforms:Windows"
             system "windows"
             targetdir "build/tools"
-        filter "configurations:*"
-            runtime "Release"    
-            optimize "speed"
-            defines { "NDEBUG"} --, "_WIN32" }
     project "LuaC"
         language "C"
         kind "ConsoleApp"
         staticruntime "on"
+        removeconfigurations "debug"
         files { "lua/src/luac.c" }
         includedirs { "lua/src" }
         targetname "luac"
@@ -30,19 +42,20 @@ workspace "Lua"
         filter "platforms:Windows"
             system "windows"
             targetdir "build/tools"
-        filter "configurations:*"
-            runtime "Release"    
-            optimize "speed"
-            defines { "NDEBUG"} --, "_WIN32" }
 
     project "Lua"
         language "C"
         kind "StaticLib"
         staticruntime "on"
-        targetdir "build/%{cfg.platform}"
+        targetdir "build/%{cfg.platform}/%{cfg.buildcfg}"
         files { "**.c", "**.h" }
         --Remove lua.c and lua.c since we are building a library
         removefiles { "**lua.c", "**luac.c" }
+
+        filter "toolset:msc"
+            targetextension  ".lib" 
+        filter "toolset:gcc"
+            targetextension  ".a" 
 
         filter "platforms:Windows"
             system "windows"
@@ -69,10 +82,6 @@ workspace "Lua"
                 "{COPY} lua/src/lualib.h build/include/",
                 "{COPY} lua/src/luaconf.h build/include/",
             }
-        filter "configurations:*"
-            runtime "Release"    
-            optimize "speed"
-            defines { "NDEBUG"} --, "_WIN32" }
     
         newaction {
             trigger = "clean",
