@@ -53,8 +53,9 @@ workspace "Lua"
         removefiles { "**lua.c", "**luac.c" }
 
         filter "toolset:msc"
-            targetextension  ".lib" 
+            targetextension  ".lib"
         filter "toolset:gcc"
+            targetprefix "lib"
             targetextension  ".a" 
 
         filter "platforms:Windows"
